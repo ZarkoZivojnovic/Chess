@@ -1,7 +1,9 @@
 renderTable(table);
 
 document.getElementById('table').addEventListener('click', clickOnTable);
-document.getElementById("btns").addEventListener("click", event => {
+document.getElementById("btns").addEventListener("click", castlingEvent);
+
+function castlingEvent(event) {
     if (event.target.tagName === "BUTTON") {
         const shortOrLong = event.target.id.split("_")[0],
             color = event.target.id.split("_")[2];
@@ -11,7 +13,6 @@ document.getElementById("btns").addEventListener("click", event => {
             return;
         }
         if (shortOrLong === "short") {
-            console.log(isShortCastlingAllowed(color));
             if (isShortCastlingAllowed(color)) {
                 if (color === "black") {
                     table[4] = {};
@@ -24,7 +25,7 @@ document.getElementById("btns").addEventListener("click", event => {
                     table[62] = {color, piece: "king"};
                     table[63] = {};
                 }
-            }else {
+            } else {
                 return;
             }
         } else {
@@ -40,14 +41,14 @@ document.getElementById("btns").addEventListener("click", event => {
                     table[59] = {color, piece: "rook"};
                     table[60] = {};
                 }
-            }else {
+            } else {
                 return;
             }
         }
         moves.push({color: color, piece: event.target.id});
         renderTable(table);
     }
-});
+}
 
 function clickOnTable(event) {
     if (event.target.tagName === 'TD') {
