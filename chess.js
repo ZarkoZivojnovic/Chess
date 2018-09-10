@@ -5,7 +5,8 @@ document.getElementById("btns").addEventListener("click", event => {
     if (event.target.tagName === "BUTTON"){
         const shortOrLong = event.target.id.split("_")[0],
             color = event.target.id.split("_")[2];
-        if (moves[moves.length-1].color === color){
+
+        if (!myTurn(color)){
             errorLog("not your turn!!");
             return;
         }
@@ -51,7 +52,7 @@ function clickOnTable(event) {
             return;
         }
         if (selected.from === -1) {
-            if (!myTurn(id)) {
+            if (!myTurn(table[id].color)) {
                 errorLog("It's not your turn!");
                 return;
             }
@@ -352,7 +353,7 @@ function errorLog(error) {
     document.getElementById('errors').innerHTML = error;
 }
 
-function myTurn(field) {
-    if (moves.length === 0) return table[field].color === 'white';// prvi igra beli
-    return moves[moves.length - 1].color !== table[field].color;
+function myTurn(color) {
+    if (moves.length === 0) return color === 'white';// prvi igra beli
+    return moves[moves.length - 1].color !== color;
 }
