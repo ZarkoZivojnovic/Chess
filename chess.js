@@ -2,44 +2,49 @@ renderTable(table);
 
 document.getElementById('table').addEventListener('click', clickOnTable);
 document.getElementById("btns").addEventListener("click", event => {
-    if (event.target.tagName === "BUTTON"){
+    if (event.target.tagName === "BUTTON") {
         const shortOrLong = event.target.id.split("_")[0],
             color = event.target.id.split("_")[2];
 
-        if (!myTurn(color)){
+        if (!myTurn(color)) {
             errorLog("not your turn!!");
             return;
         }
-        if (shortOrLong === "short"){
+        if (shortOrLong === "short") {
             console.log(isShortCastlingAllowed(color));
-            if (isShortCastlingAllowed(color)){
-                if (color==="black"){
-                    table[4]={};
-                    table[5]={color, piece:"rook"};
-                    table[6]={color, piece:"king"};
-                    table[7]={};
-                } else if (color === "white")  {
-                    table[60]={};
-                    table[61]={color, piece:"rook"};
-                    table[62]={color, piece:"king"};
-                    table[63]={};
+            if (isShortCastlingAllowed(color)) {
+                if (color === "black") {
+                    table[4] = {};
+                    table[5] = {color, piece: "rook"};
+                    table[6] = {color, piece: "king"};
+                    table[7] = {};
+                } else if (color === "white") {
+                    table[60] = {};
+                    table[61] = {color, piece: "rook"};
+                    table[62] = {color, piece: "king"};
+                    table[63] = {};
                 }
+            }else {
+                return;
             }
         } else {
             if (isLongCastlingAllowed(color)) {
-                if (color==="black"){
-                    table[0]={};
-                    table[2]={color, piece:"king"};
-                    table[3]={color, piece:"rook"};
-                    table[4]={};
-                } else if (color === "white")  {
-                    table[56]={};
-                    table[58]={color, piece:"king"};
-                    table[59]={color, piece:"rook"};
-                    table[60]={};
+                if (color === "black") {
+                    table[0] = {};
+                    table[2] = {color, piece: "king"};
+                    table[3] = {color, piece: "rook"};
+                    table[4] = {};
+                } else if (color === "white") {
+                    table[56] = {};
+                    table[58] = {color, piece: "king"};
+                    table[59] = {color, piece: "rook"};
+                    table[60] = {};
                 }
+            }else {
+                return;
             }
         }
+        moves.push({color: color, piece: event.target.id});
         renderTable(table);
     }
 });
@@ -210,7 +215,7 @@ function movePiece(selected) {
             table[selected.from] = {};
             renderTable(table);
             let check = isKingInCheck();
-            document.getElementById("alert").innerHTML = "<h3>Check:</h3> white king: " + check.white + "<br> black king: " + check.black + "<h3>Checkmate:</h3> <h3>Stalemate:</h3>";
+            document.getElementById("alert").innerHTML = "<h3>Check:</h3> white king: " + check.white + "<br> black king: " + check.black;
         }
     } else {
         errorLog("Illegal move");
@@ -219,7 +224,7 @@ function movePiece(selected) {
 
 function isShortCastlingAllowed(color) {
     if (isKingInCheck()[color]) return false;
-    if (color === "black"){
+    if (color === "black") {
         if (!(typeof table[5].piece === "undefined" && typeof table[6].piece === "undefined")) {
             return false;
         }
@@ -233,7 +238,7 @@ function isShortCastlingAllowed(color) {
 
 function isLongCastlingAllowed(color) {
     if (isKingInCheck()[color]) return false;
-    if (color === "black"){
+    if (color === "black") {
         if (!(typeof table[1].piece === "undefined" && typeof table[2].piece === "undefined" && typeof table[3].piece === "undefined")) {
             return false;
         }
