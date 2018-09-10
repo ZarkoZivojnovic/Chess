@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table,
+tr,
+td {
+    padding: 0;
+    margin: 0;
+}
+
+table {
+    margin: auto;
+}
+
+td,
+th {
+    border: solid black 1px;
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    line-height: 1;
+}
+
+th {
+    font-size: 20px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.black {
+    background: #ddd;
+}
+
+.selected {
+    background-color: #f4d4d4
+}
+
+#errors {
+    color: red;
+    font-size: 18px;
+}
+
+#replaceSelect {
+    text-align: center;
+}
+
+#replaceSelect > h1 {
+    font-size: 40px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#alert {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 20%;
+    margin: 20px;
+}
+
+#btns {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+}
+
+.top, .bottom {
+    position: absolute;
+}
+
+.top {
+    top:30px;
+    left: -60px;
+}
+
+.bottom {
+    bottom: 80px;
+    left: -60px;
+}
