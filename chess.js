@@ -78,7 +78,6 @@ function clickOnTable(event) {
     }
 }
 
-
 function convertField(id) {
     return [Math.floor(id / 8), id % 8]
 }
@@ -360,6 +359,13 @@ function errorLog(error) {
 }
 
 function myTurn(color) {
-    if (moves.length === 0) return color === 'white';// prvi igra beli
+    if (moves.length === 0) return color === 'white';
+    if (isDoubleMoveAllowed(color)) return true;
     return moves[moves.length - 1].color !== color;
+}
+
+function isDoubleMoveAllowed(color) {
+    return moves.length === 1 ||
+        moves.length === 2 && moves[moves.length-1].color === color && moves[0].color !== color||
+        moves.length === 3 && moves[moves.length-1].color === color && moves[moves.length-2].color !== color;
 }
