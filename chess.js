@@ -135,6 +135,8 @@ function checkThePawn(piece, arrFrom, arrTo, to) {
         if (arrTo[0] === (arrFrom[0] - jedanIliDva) || arrTo[0] === (arrFrom[0] - 1)) {
             if (table[to] && table[to].piece) {
                 return arrTo[1] === (arrFrom[1] + 1) || (arrTo[1] === (arrFrom[1] - 1));
+            } else if (moves.length>1 && isAnPassant(to)) {
+                return true;
             } else {
                 if (arrTo[1] >= (arrFrom[1] + 1) || (arrTo[1] <= (arrFrom[1] - 1))) {
                     return false;
@@ -150,6 +152,8 @@ function checkThePawn(piece, arrFrom, arrTo, to) {
     if (arrTo[0] === (arrFrom[0] + jedanIliDva) || arrTo[0] === (arrFrom[0] + 1)) {
         if (table[to] && table[to].piece) {
             return arrTo[1] === (arrFrom[1] + 1) || (arrTo[1] === (arrFrom[1] - 1));
+        }else if (moves.length>1 && isAnPassant(to)) {
+            return true;
         } else {
             if (arrTo[1] >= (arrFrom[1] + 1) || (arrTo[1] <= (arrFrom[1] - 1))) {
                 return false;
@@ -368,4 +372,23 @@ function isDoubleMoveAllowed(color) {
     return moves.length === 1 ||
         moves.length === 2 && moves[moves.length-1].color === color && moves[0].color !== color||
         moves.length === 3 && moves[moves.length-1].color === color && moves[moves.length-2].color !== color;
+}
+
+function isAnPassant(to) {
+    const whitePawnStartPositions = [48,49,50,51,52,53,54,55],
+        blackPawnStartPositions = [8,9,10,11,12,13,14,15];
+    if (moves[moves.length-1].color = "white"
+            && whitePawnStartPositions.indexOf(moves[moves.length-1].from) > -1 && moves[moves.length-1].to === to-8){
+        table[to-8] = {};
+        eatenPieces.white.push(moves[moves.length-1].piece);
+        renderTable(table);
+        return true;
+    } else if (moves[moves.length-1].color = "black"
+            && blackPawnStartPositions.indexOf(moves[moves.length-1].from) > -1 && moves[moves.length-1].to === to+8){
+        table[to+8] = {};
+        eatenPieces.black.push(moves[moves.length-1].piece);
+        renderTable(table);
+        return true;
+    }
+    return false;
 }
